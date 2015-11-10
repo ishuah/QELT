@@ -1,0 +1,21 @@
+{% extends "dashboard/base.html" %}
+{% block container %}
+<div class="container">
+	<h3>Quiz</h3>
+
+	<h5>Find the value of x when y=0</h5>
+	<h4> {{a}}x&sup2; {% if b > 0 %} + {% endif %} {{b}}x {% if c > 0 %} + {% endif %} {{c}}</h4>
+
+	<form method="POST">
+	{% csrf_token %}
+	<div class="row">
+		<div class="six columns">
+			<input class="u-full-width" type="text" placeholder="value of x" name="answer"/>
+			<p>If x has more than one value, comma separate the values. ex. ( 4,9 )</p>
+			<p>If x has no real value, leave the form blank</p>
+			<button class="button button-primary">Submit answer</button>
+		</div>
+	</div>
+	</form>
+</div>
+{% endblock %}

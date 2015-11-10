@@ -1,7 +1,14 @@
 {% extends "dashboard/base.html" %}
 {% block container %}
 <div class="container">
-	<h3>Dashboard</h3>
-	<h5>We are working on making this space awesome.</h5>
+	<h3>Question board</h3>
+	{% if count == 0 %}
+		<h5>You haven't attempted any questions yet.</h5>
+		<a class="button button-primary" href="/dashboard/question">Start working on a question</a>
+	{% else %}
+		<h5>You have attempted {{count}} questions</h5>
+		<a class="button button-primary" href="/dashboard/question">Start working on another question</a>
+	{% endif %}
+	
 </div>
 {% endblock %}

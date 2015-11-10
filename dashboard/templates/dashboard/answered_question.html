@@ -1,0 +1,17 @@
+{% extends "dashboard/base.html" %}
+{% block container %}
+<div class="container">
+	<h3>Completed Question</h3>
+
+	<h5>Find the value of x when y=0</h5>
+	<h4> {{a}}x&sup2; {% if b > 0 %} + {% endif %} {{b}}x {% if c > 0 %} + {% endif %} {{c}}</h4>
+
+	<h4>Correct answer: {{question.x}}</h4>
+	<h4>Your answer: {{question.student_answer}}</h4>
+	{% if question.is_correct %}
+		<h5>Your answer is correct.</h5>
+	{% else %}
+		<h5>Your answer is wrong.</h5>
+	{% endif %}
+</div>
+{% endblock %}
