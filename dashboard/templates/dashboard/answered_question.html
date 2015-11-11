@@ -4,14 +4,26 @@
 	<h3>Completed Question</h3>
 
 	<h5>Find the value of x when y=0</h5>
-	<h4> {{a}}x&sup2; {% if b > 0 %} + {% endif %} {{b}}x {% if c > 0 %} + {% endif %} {{c}}</h4>
+	{% autoescape off %}
+		<h4>{{question.to_string}}</h4>
+	{% endautoescape %}
 
-	<h4>Correct answer: {{question.x}}</h4>
-	<h4>Your answer: {{question.student_answer}}</h4>
+	
+	{% if question.student_answer == '[]' %}
+			<h5>You answered <b><i>'x has no real value'</i></b>
+		{% else %}
+			<h5>You answered <b> x = {{question.student_answer}}</b>
+	{% endif %}
+
 	{% if question.is_correct %}
-		<h5>Your answer is correct.</h5>
+		, which is correct.</h5>
 	{% else %}
-		<h5>Your answer is wrong.</h5>
+		, which is wrong.
+		{% if question.x == '[]' %}
+			There is no real value for x.</h5>
+		{% else %}
+			The solution for x is <b>{{question.x}}</b>.</h5>
+		{% endif %}
 	{% endif %}
 </div>
 {% endblock %}

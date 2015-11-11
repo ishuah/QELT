@@ -2,13 +2,50 @@
 {% block container %}
 <div class="container">
 	<h3>Question board</h3>
-	{% if count == 0 %}
+	{% if questions %}
+		<h5>You have attempted {{ questions|length }} questions.</h5>
+		<a class="button button-primary" href="/dashboard/question">Start working on another question</a>
+	{% else %}
 		<h5>You haven't attempted any questions yet.</h5>
 		<a class="button button-primary" href="/dashboard/question">Start working on a question</a>
-	{% else %}
-		<h5>You have attempted {{count}} questions</h5>
-		<a class="button button-primary" href="/dashboard/question">Start working on another question</a>
 	{% endif %}
-	
+
+	{% if questions %}
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Question</th>
+				<th>Your Answer</th>
+				<th>Correct Answer</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% autoescape off %}
+			{% for question in questions %}
+				<tr>
+					<td><a href="{{question.get_absolute_url}}">{{question.to_string}}</a></td>
+						{% if question.student_answer == '[]' %}
+							<td>No real answer</td>
+						{% else %}
+							<td>{{question.student_answer}}</td>
+						{% endif %}
+						{% if question.x == '[]' %}
+							<td>No real answer</td>
+						{% else %}
+							<td>{{question.x}}</td>
+						{% endif %}
+						{% if question.is_correct %}
+							<td>Correct</td>
+						{% else %}
+							<td>Wrong</td>
+						{% endif %}
+					
+				</tr>
+			{% endfor %}
+			{% endautoescape %}
+		</tbody>
+	</table>
+	{% endif %}
 </div>
 {% endblock %}

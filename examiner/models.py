@@ -35,6 +35,9 @@ class Question(models.Model):
 			for i in student_answer:
 				if i not in correct_answer:
 					return False
-				return True
+			return True
 		return False
 
+	def to_string(self):
+		coefficients = json.loads(self.coefficients)
+		return str(coefficients[0])+'x&sup2; + '+ str(coefficients[1])  +'x + '+ str(coefficients[2]) +' = y'

@@ -12,14 +12,14 @@ def index(request):
 def dashboard(request):
 	if request.user.is_staff:
 		return redirect('/admin/')
-	count = Question.objects.filter(student=request.user).count()
-	return render(request, 'dashboard/dashboard.html', { 'count': count })
+	questions = Question.objects.filter(student=request.user, student_answer__isnull=False)
+	return render(request, 'dashboard/dashboard.html', { 'questions': questions })
 
 @login_required
 def new_question(request):
 	if request.user.is_staff:
 		return redirect('admin/')
-	question, created = Question.objects.get_or_create(student=request.user, student_answer=None)
+	question, created = Question.objects.get_or_create(student=request.user, student_answer__isnull=True)
 	return redirect(question.get_absolute_url())
 	
 
@@ -37,5 +37,5 @@ def question(request, questionId):
 			question.student_answer = json.dumps(answer)
 			question.save()
 	if question.student_answer:
-		return render(request, 'dashboard/answered_question.html', { 'question': question,  'a':coefficients[0], 'b':coefficients[1], 'c':coefficients[2] })
-	return render(request, 'dashboard/question.html', { 'a':coefficients[0], 'b':coefficients[1], 'c':coefficients[2] })
+		return render(request, 'dashboard/answered_question.html', { 'question': question })
+	return render(request, 'dashboard/question.html', { 'question': question.to_string() })

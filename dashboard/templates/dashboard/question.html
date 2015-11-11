@@ -4,7 +4,9 @@
 	<h3>Quiz</h3>
 
 	<h5>Find the value of x when y=0</h5>
-	<h4> {{a}}x&sup2; {% if b > 0 %} + {% endif %} {{b}}x {% if c > 0 %} + {% endif %} {{c}}</h4>
+	{% autoescape off %}
+		<h4>{{question}}</h4>
+	{% endautoescape %}
 
 	<form method="POST">
 	{% csrf_token %}
