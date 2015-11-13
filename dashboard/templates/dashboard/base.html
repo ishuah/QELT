@@ -1,36 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
 	<meta charset="utf-8">
 	<title>Quadratic Equation Learning Tool</title>
 	<meta name="description" content="Quadratic Equation Learning Tool">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="/static/css/normalize.css">
-    <link rel="stylesheet" href="/static/css/skeleton.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/ext-all-debug.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-triton/resources/theme-triton-all-debug.css">
+	{% load staticfiles %}
+    <script src="{% static 'javascript/base.js' %}"></script>
 </head>
-<body>
-	<div class="row header">
-	 	<div class="ten columns">
-	 		<h3 class="logo">
-	 			<a href="/dashboard">QELT</a>
-	 		</h3>
-	 		{% if '/dashboard/question' in request.path %}
-	 			<a class="button" href="/dashboard/"> &lt; Back to dashboard</a>
-	 		{% endif %}
-	 	</div>
-	    <div class="two columns">
-	    	{% if user.is_authenticated %}
-	    		<a class="button" href="/signout/">Sign Out</a>
-	    		<h6>{{ user.email}}</h6>
-	    	{% else %}
-	    		<!-- <a class="button" href="/signin/">Sign In</a>
-	    		<a class="button button-primary" href="/signup/">Sign Up</a> -->
-	    	{% endif %}
-	    </div>
-
-     </div>
-     {% block container %}
-     {% endblock%}
+<body style= "height: 100%">
+	
 </body>
 </html>

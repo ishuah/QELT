@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^dashboard/question/(?P<questionId>[\d]{0,50})/$', 'dashboard.views.question', name='question'),
     url(r'^signin/$', 'django.contrib.auth.views.login', {'template_name': 'dashboard/signin.html'},  name='signin'),
     url(r'^signout/$', 'django.contrib.auth.views.logout', {'template_name': 'dashboard/signin.html'}, name='signout' ),
+    url(r'^api/', include('api.urls')),
 ]

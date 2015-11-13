@@ -4,9 +4,7 @@ from examiner.models import Question
 import json
 
 def index(request):
-	if request.user.is_authenticated():
-		return redirect('dashboard')
-	return redirect('signin')
+	return render(request, 'dashboard/base.html')
 
 @login_required
 def dashboard(request):

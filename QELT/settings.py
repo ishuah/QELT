@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'tastypie',
+
     'examiner',
     'dashboard'
 )
@@ -116,3 +118,5 @@ STATICFILES_DIRS = (
 LOGIN_REDIRECT_URL = '/dashboard'
 LOGIN_URL = '/signin'
 LOGOUT_URL = '/signout'
+
+TASTYPIE_DEFAULT_FORMATS = ['json']
