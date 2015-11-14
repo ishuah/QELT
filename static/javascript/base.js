@@ -3,7 +3,7 @@ Ext.application({
 
 	appFolder : '/static/javascript',
 
-	controllers: ['Signin', 'Navigation'],
+	controllers: ['Signin', 'Navigation', 'Question'],
 
 	launch: function () {
 		var app = this;

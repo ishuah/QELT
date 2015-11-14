@@ -57,7 +57,8 @@ class UserResource(ModelResource):
 				login(request, user)
 				return self.create_response(request, {
 					'success': True,
-					'username': user.username
+					'username': user.username,
+					'isStaff': user.is_staff
 					})
 			else:
 				return self.create_response(request, {
@@ -80,6 +81,7 @@ class UserResource(ModelResource):
 
 class QuestionResource(ModelResource):
 	student = fields.ForeignKey('api.resources.UserResource', 'student')
+
 	class Meta:
 		queryset = Question.objects.all()
 		resource_name = 'question'
@@ -88,4 +90,10 @@ class QuestionResource(ModelResource):
 		}
 		authorization = DjangoAuthorization()
 		authentication = SessionAuthentication();
-		
+
+	def dehydrate(self, bundle):
+		if bundle.data['student_answer'] == None:
+			bundle.data.pop('x')
+		bundle.data['text'] = bundle.obj.to_string()
+		bundle.data['isCorrect'] = bundle.obj.is_correct()
+		return bundle

@@ -25,6 +25,8 @@ Ext.define('QELT.controller.Signin', {
 
 					controller.signin(username, password, function(response){
 						if (response.hasOwnProperty("success") && response.success == true){
+							if (response.isStaff)
+								window.location = '/admin'
 							windowX.hide();
 							controller.user = response.username;
 							controller.fireEvent('login', controller.user);
