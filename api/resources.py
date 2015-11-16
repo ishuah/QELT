@@ -21,7 +21,7 @@ class SignedInResource(Resource):
 		from django.http import HttpResponse
 
 		if request.user.is_authenticated():
-			return HttpResponse(json.dumps({ "username": request.user.username}), status=200, content_type="application/json")
+			return HttpResponse(json.dumps({ "username": request.user.username, "id": request.user.pk}), status=200, content_type="application/json")
 		else:
 			return HttpResponse(status=401)
 
@@ -58,6 +58,7 @@ class UserResource(ModelResource):
 				return self.create_response(request, {
 					'success': True,
 					'username': user.username,
+					'id': user.pk,
 					'isStaff': user.is_staff
 					})
 			else:
@@ -83,7 +84,7 @@ class QuestionResource(ModelResource):
 	student = fields.ForeignKey('api.resources.UserResource', 'student')
 
 	class Meta:
-		queryset = Question.objects.all()
+		queryset = Question.objects.filter(student_answer__isnull=False)
 		resource_name = 'question'
 		filtering = {
 			"student": ALL_WITH_RELATIONS

@@ -4,14 +4,12 @@ Ext.application({
 	appFolder : '/static/javascript',
 
 	controllers: ['Signin', 'Board', 'Question'],
-	
+
 	launch: function () {
 		var app = this;
-		app.getController('Signin').isUserSignedIn(function(username){
-			var store = Ext.getStore('Question');
-			console.log(store);
+		app.getController('Signin').isUserSignedIn(function(userdata){
 			app.getController('Board')
-				.updateUserInfo(username)
+				.updateUserData(userdata)
 				.view.show();
 		});
 	}

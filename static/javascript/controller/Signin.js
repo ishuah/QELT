@@ -28,7 +28,7 @@ Ext.define('QELT.controller.Signin', {
 							if (response.isStaff)
 								window.location = '/admin'
 							windowX.hide();
-							controller.user = response.username;
+							controller.user = response;
 							controller.fireEvent('login', controller.user);
 							controller.fireEvent('ready', controller.user);
 						}else{

@@ -3,5 +3,6 @@ Ext.define('QELT.model.Question', {
 
 	idProperty: 'id',
 
-	fields: ['coefficients', 'isCorrect', 'student_answer', 'text']
+	fields: ['coefficients', 'isCorrect', 'student_answer', 'text'],
+
 });
