@@ -1,7 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.authentication import SessionAuthentication, BasicAuthentication
-from tastypie.authorization import DjangoAuthorization
+from tastypie.authorization import Authorization
 from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie import fields
 from tastypie.utils import trailing_slash
@@ -88,8 +88,10 @@ class QuestionResource(ModelResource):
 		filtering = {
 			"student": ALL_WITH_RELATIONS
 		}
-		authorization = DjangoAuthorization()
-		authentication = SessionAuthentication();
+		allowed_methods = ['get', 'post', 'patch']
+		authentication = SessionAuthentication()
+		authorization = Authorization()
+		
 
 	def dehydrate(self, bundle):
 		if bundle.data['student_answer'] == None:

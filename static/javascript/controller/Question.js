@@ -6,7 +6,7 @@ Ext.define('QELT.controller.Question',{
 		var controller = this;
 		var signinController = QELT.getApplication().getController('Signin');
 		signinController.on('ready', function(){
-			var store = Ext.create('Ext.data.Store', {
+			/*var store = Ext.create('Ext.data.Store', {
 				model: 'QELT.model.Question',
 				proxy: {
 					type: 'ajax',
@@ -17,7 +17,8 @@ Ext.define('QELT.controller.Question',{
 					}
 				},
 				autoLoad: true
-			});
+			});*/
+			var store = Ext.getStore('QELT.store.Question');
 			console.log(store);
 		});
 	}
