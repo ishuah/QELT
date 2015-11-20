@@ -4,6 +4,7 @@ Ext.application({
 	appFolder : '/static/javascript',
 
 	controllers: ['Signin', 'Board', 'Question'],
+	requires: [ 'QELT.utils.CSRFHelper'],
 
 	launch: function () {
 		var app = this;

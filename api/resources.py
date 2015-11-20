@@ -84,7 +84,8 @@ class QuestionResource(ModelResource):
 	student = fields.ForeignKey('api.resources.UserResource', 'student')
 
 	class Meta:
-		queryset = Question.objects.filter(student_answer__isnull=False)
+		queryset = Question.objects.all()
+		always_return_data = True
 		resource_name = 'question'
 		filtering = {
 			"student": ALL_WITH_RELATIONS
@@ -99,4 +100,7 @@ class QuestionResource(ModelResource):
 			bundle.data.pop('x')
 		bundle.data['text'] = bundle.obj.to_string()
 		bundle.data['isCorrect'] = bundle.obj.is_correct()
+		#Added this because Ext.form.Panel requires the success field in the response
+		if bundle.request.method == 'PATCH' and not bundle.data.has_key('success'):
+			bundle.data['success'] = True
 		return bundle
