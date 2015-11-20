@@ -18,7 +18,8 @@ Ext.define('QELT.controller.Board', {
 			'<tpl else>',
 				'<p style="font-size:16px;">Answer: The value of x is {x}</p>',
 			'</tpl>',
-			'<p style="font-size:16px;">You answered {student_answer}, which is <tpl if="isCorrect"> correct. <tpl else> wrong </tpl></p>'
+			'<p style="font-size:16px;">You answered {student_answer}, which is <tpl if="isCorrect"> correct. <tpl else> wrong </tpl></p>',
+			'<div id="mychart" style="width: 400px; height: 400px; margin: 0 auto"></div>'
 			),
 
 	init: function(){
@@ -57,6 +58,7 @@ Ext.define('QELT.controller.Board', {
 							console.log(action);
 							//controller.answerView.items.get('answerField').update(action.result.text);
 							controller.answerTpl.overwrite(controller.answerView.body, action.result);
+							controller.drawChart(action.result);
 							controller.getContentPanel().setActiveItem(1);
 						},
 						failure: function(form, action) {
@@ -119,6 +121,7 @@ Ext.define('QELT.controller.Board', {
 							controller.questionView.items.get("questionField").update(question.text);
 							console.log(controller.questionView);
 							controller.questionView.form.url = question.resource_uri;
+							controller.questionView.form.setValues({ student_answer: ''});
 							controller.getContentPanel().setActiveItem(0);
 						},
 						failure: function(response){
@@ -146,5 +149,86 @@ Ext.define('QELT.controller.Board', {
 		});
 		this.getContentPanel().add(dataView);
 		controller.getContentPanel().setActiveItem(2);
+	},
+	drawChart: function(question){
+		new Highcharts.Chart({
+					chart: {
+						renderTo:'mychart',
+						events: {
+							load: function(){
+								this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);
+							}
+						}
+					},
+					title: {
+						text: 'Quadratic Equation Chart'
+					},
+					xAxis: {
+						title: {
+							text: 'x'
+						},
+						plotLines:[{
+							color: 'black',
+							dashStyle: 'solid',
+							value: 0,
+							width: 2
+						}]
+					},
+					yAxis:{
+						title:{
+							text: 'y'
+						},
+						gridLineWidth:0,
+						tickColor:'black',
+						tickLength:5,
+						tickWidth:1,
+						tickPosition: 'outside',
+						plotLines:[{
+							color:'black',
+							dashStyle:'solid',
+							value:0,
+							width:2
+						}]
+					},
+					plotOptions:{
+						line:{
+							marker:{
+								enabled:false
+							}
+						}
+					},
+					series:[{
+						stickTracking:false,
+						events:{
+							click: function(e){
+								this.chart.myTooltip.refresh(e.point, e);
+							},
+							mouseOut: function(){
+								this.chart.myTooltip.hide();
+							}
+						},
+						type: 'line',
+						color: 'blue',
+						data: (function(){
+							var data = [];
+							var coefficients = JSON.parse(question.coefficients);
+							
+							for(var i = -10; i<=10; i++){
+								point = {x:i, y:((coefficients[0]*i*i)+(coefficients[1]*i) + coefficients[2])}
+								if (point.y ==0)
+									point['marker'] = {enabled: true};
+								data.push(point);
+							}
+							
+							return data;
+						})()
+					}],
+					tooltip:{
+						enabled:false,
+						formatter: function(){
+							return "(x: "+this.x+" y:"+this.y+")"
+						}
+					}
+				});
 	}
 });

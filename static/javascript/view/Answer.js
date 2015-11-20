@@ -4,6 +4,9 @@ Ext.define('QELT.view.Answer', {
 	bufferedRender: false,
 	fullScreen: true,
 	layout:'fit',
+
+	question:null,
+
 	defaults: {
 		padding: 10
 	},
@@ -11,5 +14,5 @@ Ext.define('QELT.view.Answer', {
 		text:'< Back',
 		tooltip:'Back to dashboard',
 		itemId:'backButton'
-	}],
+	}]
 });
