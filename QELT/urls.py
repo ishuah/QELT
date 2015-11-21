@@ -19,10 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'dashboard.views.index', name='index'),
-    url(r'^dashboard/$', 'dashboard.views.dashboard', name='dashboard'),
-    url(r'^dashboard/question$', 'dashboard.views.new_question', name='new_question'),
-    url(r'^dashboard/question/(?P<questionId>[\d]{0,50})/$', 'dashboard.views.question', name='question'),
-    url(r'^signin/$', 'django.contrib.auth.views.login', {'template_name': 'dashboard/signin.html'},  name='signin'),
-    url(r'^signout/$', 'django.contrib.auth.views.logout', {'template_name': 'dashboard/signin.html'}, name='signout' ),
     url(r'^api/', include('api.urls')),
 ]
