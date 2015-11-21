@@ -12,14 +12,13 @@ Ext.define('QELT.controller.Board', {
 	store: null,
 	questionView: null,
 	answerTpl: new Ext.XTemplate(
-			'<p style="font-size:32px;">{text}</p>',
+			'<p style="font-size:24px;">{text}</p>',
 			'<tpl if="x == \'[]\'">',
 				'<p style="font-size:16px;">Answer: x has no real value.</p>',
 			'<tpl else>',
 				'<p style="font-size:16px;">Answer: The value of x is {x}</p>',
 			'</tpl>',
-			'<p style="font-size:16px;">You answered {student_answer}, which is <tpl if="isCorrect"> correct. <tpl else> wrong </tpl></p>',
-			'<div id="mychart" style="width: 400px; height: 400px; margin: 0 auto"></div>'
+			'<p style="font-size:16px;">You answered {student_answer}, which is <tpl if="isCorrect"> correct. <tpl else> wrong </tpl></p>'
 			),
 
 	init: function(){
@@ -56,8 +55,8 @@ Ext.define('QELT.controller.Board', {
 					form.submit({
 						success: function(form, action) {
 							console.log(action);
-							//controller.answerView.items.get('answerField').update(action.result.text);
-							controller.answerTpl.overwrite(controller.answerView.body, action.result);
+							controller.answerView.items.get('answerBox').update(controller.answerTpl.apply(action.result));
+							//controller.answerTpl.overwrite(controller.answerView.items.get('answerBox'), action.result);
 							controller.drawChart(action.result);
 							controller.getContentPanel().setActiveItem(1);
 						},

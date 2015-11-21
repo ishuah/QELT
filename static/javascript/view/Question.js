@@ -3,6 +3,7 @@ Ext.define("QELT.view.Question", {
 	method: "PATCH",
 	id: "questionView",
 	fullscreen: true,
+	autoScroll: true,
 	bodyStyle: 'padding: 5em;',
 	jsonSubmit: true,
 	tbar:[{
@@ -11,7 +12,8 @@ Ext.define("QELT.view.Question", {
 		itemId:'backButton'
 	}],
 	
-	width: 585,
+	width: '100%',
+	height: '100%',
 	defaults: {
 		xtype: 'textfield',
 		labelAlign: 'left',
@@ -23,7 +25,7 @@ Ext.define("QELT.view.Question", {
 			xtype: 'displayfield',
 			itemId: 'questionField',
 			style:{
-				'font-size':'32px;'
+				'font-size':'24px;'
 			}
 		},
 		{
