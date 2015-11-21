@@ -1,0 +1,86 @@
+[
+{
+    "fields": {
+        "username": "student1",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$aYKJlNpMqDXs$BTRrI/FrEII+ySKK+eGVFguIulpCyUizlKYRxDzI74w=",
+        "email": "",
+        "date_joined": "2015-11-21T12:35:48Z"
+    },
+    "model": "auth.user"
+},
+{
+    "fields": {
+        "username": "student2",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$BetgvoURLYfZ$tCo/zTd5KIQRoCntmp0icuucdFvQfeyWx3ICx0ZmSAE=",
+        "email": "",
+        "date_joined": "2015-11-21T12:36:07.208Z"
+    },
+    "model": "auth.user"
+},
+{
+    "fields": {
+        "username": "student3",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$0EjfPVzIQAiN$m+KFt7qI96ZV4mkQzztJvzHWNk8Y2Ct5XVOM9Kk93rw=",
+        "email": "",
+        "date_joined": "2015-11-21T12:36:17.533Z"
+    },
+    "model": "auth.user"
+},
+{
+    "fields": {
+        "username": "teacher",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": true,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [
+            [
+                "add_question",
+                "examiner",
+                "question"
+            ],
+            [
+                "change_question",
+                "examiner",
+                "question"
+            ],
+            [
+                "delete_question",
+                "examiner",
+                "question"
+            ]
+        ],
+        "password": "pbkdf2_sha256$20000$MJUmNXKREDgP$1E/amLuQO/VwE/I1L0bJtcOWiF38fop5Lnmx33WR3wY=",
+        "email": "",
+        "date_joined": "2015-11-21T12:36:36Z"
+    },
+    "model": "auth.user"
+}
+]

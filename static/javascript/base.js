@@ -9,9 +9,12 @@ Ext.application({
 	launch: function () {
 		var app = this;
 		app.getController('Signin').isUserSignedIn(function(userdata){
-			app.getController('Board')
-				.updateUserData(userdata)
-				.view.show();
+			if (userdata.isStaff)
+				window.location = '/admin';
+			else
+				app.getController('Board')
+					.updateUserData(userdata)
+					.view.show();
 		});
 	}
 });

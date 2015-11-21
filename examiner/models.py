@@ -21,7 +21,7 @@ class Question(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.x:
-			self.x = get_root(bool(random.getrandbits(1))) if bool(random.getrandbits(1)) else "[]"
+			self.x = get_root(bool(random.getrandbits(1))) if bool(random.getrandbits(2)) else "[]"
 			self.coefficients = get_coefficients(self.x)
 		super(Question, self).save(*args, **kwargs)
 

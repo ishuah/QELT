@@ -38,7 +38,7 @@ Ext.define('QELT.controller.Board', {
 							return Ext.Msg.alert('Sign out failed', 'Refresh the page');
 						controller.view.unmask();
 						controller.view.hide();
-
+						controller.getContentPanel().remove('dataView', true);
 						QELT.getApplication().launch();
 					});
 				}
@@ -97,6 +97,7 @@ Ext.define('QELT.controller.Board', {
 
 	createDataView: function(){
 		var controller = this;
+		console.log(controller.getContentPanel());
 		var dataView = Ext.create('Ext.grid.Panel', {
 			bufferedRenderer: false,
 			autoScroll : true,
