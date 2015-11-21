@@ -3,34 +3,39 @@ Ext.define('QELT.controller.Signin', {
 	mixins: ['Ext.mixin.Observable'],
 	views: ['Signin'],
 
-	refs: [
-		{ 'ref': 'usernameField', selector: '#username' },
-		{ 'ref': 'passwordField', selector: '#password' },
-		{ 'ref': 'submitButton', selector: '#submit' }
-	],
+	refs: [{
+		'ref': 'usernameField',
+		selector: '#username'
+	}, {
+		'ref': 'passwordField',
+		selector: '#password'
+	}, {
+		'ref': 'submitButton',
+		selector: '#submit'
+	}],
 
 	user: null,
 
 	init: function() {
 		var controller = this;
 		var windowX = controller.loginWindow = controller.getView('Signin').create();
-		
+
 		this.control({
 			'#submit': {
-				click: function(){
+				click: function() {
 					var username = this.getUsernameField().getValue();
 					var password = this.getPasswordField().getValue();
 
 					windowX.mask('Signing in...');
 
-					controller.signin(username, password, function(response){
-						if (response.hasOwnProperty("success") && response.success == true){
-							
+					controller.signin(username, password, function(response) {
+						if (response.hasOwnProperty("success") && response.success == true) {
+
 							windowX.hide();
 							controller.user = response;
 							controller.fireEvent('login', controller.user);
 							controller.fireEvent('ready', controller.user);
-						}else{
+						} else {
 							windowX.unmask();
 							controller.clearPassword().setPasswordError(response.reason);
 						}
@@ -41,7 +46,7 @@ Ext.define('QELT.controller.Signin', {
 		});
 
 		this.nav = new Ext.KeyNav(windowX.getEl(), {
-			enter: function(){
+			enter: function() {
 				controller.getSubmitButton().fireEvent('click');
 			}
 		});
@@ -52,47 +57,49 @@ Ext.define('QELT.controller.Signin', {
 
 		Ext.Ajax.request({
 			url: '/api/v1/signedin/',
-			success: function(response){
+			success: function(response) {
 				controller.user = JSON.parse(response.responseText);
 				controller.fireEvent('ready', controller.user);
 				return callback(controller.user);
 			},
-			failure: function(){
-				controller.on('login', callback, {single: true});
+			failure: function() {
+				controller.on('login', callback, {
+					single: true
+				});
 				controller.loginWindow.show();
 				controller.clearForm();
 			}
 		});
 	},
 
-	signin: function(username, password, callback){
+	signin: function(username, password, callback) {
 		Ext.Ajax.request({
-			url:'/api/v1/user/signin/',
+			url: '/api/v1/user/signin/',
 			method: 'POST',
-			headers: { 
-				'Content-Type' : 'application/json' 
+			headers: {
+				'Content-Type': 'application/json'
 			},
 			jsonData: {
 				'username': username,
 				'password': password
 			},
-			success: function(response){
+			success: function(response) {
 				callback(JSON.parse(response.responseText));
 			},
-			failure: function(response){
+			failure: function(response) {
 				callback(JSON.parse(response.responseText));
 			}
 		})
 	},
 
-	signout: function(callback){
+	signout: function(callback) {
 		Ext.Ajax.request({
-			url:'/api/v1/user/signout/',
+			url: '/api/v1/user/signout/',
 			method: 'POST',
-			success: function(){
+			success: function() {
 				callback(true);
 			},
-			failure: function(){
+			failure: function() {
 				callback(false);
 			}
 		})
@@ -106,7 +113,7 @@ Ext.define('QELT.controller.Signin', {
 		return this;
 	},
 
-	clearPassword: function(){
+	clearPassword: function() {
 		this.getPasswordField().setValue('').focus();
 		return this;
 	},

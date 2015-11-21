@@ -1,12 +1,12 @@
-Ext.define('QELT.controller.Question',{
+Ext.define('QELT.controller.Question', {
 	extend: 'Ext.app.Controller',
 	models: 'Question',
 
-	init: function(){
+	init: function() {
 		var controller = this;
 		var signinController = QELT.getApplication().getController('Signin');
-		signinController.on('ready', function(){
-			
+		signinController.on('ready', function() {
+
 		});
 	}
 

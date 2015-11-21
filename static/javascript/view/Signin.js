@@ -18,7 +18,7 @@ Ext.define('QELT.view.Signin', {
 		itemId: 'username',
 		fieldLabel: 'Username',
 		allowBlank: false
-	},{
+	}, {
 		inputType: 'password',
 		fieldLabel: 'Password',
 		itemId: 'password',
