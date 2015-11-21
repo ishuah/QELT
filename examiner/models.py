@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 import random, json
 from lib import get_root, get_coefficients
 
@@ -13,7 +14,7 @@ class Question(models.Model):
 	coefficients = models.CharField(max_length=100)
 	
 	def __unicode__(self):
-		return self.student.username
+		return self.to_string()
 
 	class Meta:
 		app_label = 'examiner'
@@ -40,4 +41,4 @@ class Question(models.Model):
 
 	def to_string(self):
 		coefficients = json.loads(self.coefficients)
-		return str(coefficients[0])+'x&sup2; + '+ str(coefficients[1])  +'x + '+ str(coefficients[2]) +' = y'
+		return str(coefficients[0])+'<sup>2</sup> + '+ str(coefficients[1])  +'x + '+ str(coefficients[2]) +' = 0'
