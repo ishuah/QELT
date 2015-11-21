@@ -54,7 +54,6 @@ Ext.define('QELT.controller.Board', {
 					var form = this.questionView.getForm();
 					form.submit({
 						success: function(form, action) {
-							console.log(action);
 							controller.answerView.items.get('answerBox').update(controller.answerTpl.apply(action.result));
 							//controller.answerTpl.overwrite(controller.answerView.items.get('answerBox'), action.result);
 							controller.drawChart(action.result);
@@ -97,7 +96,7 @@ Ext.define('QELT.controller.Board', {
 	},
 
 	createDataView: function(){
-		controller = this;
+		var controller = this;
 		var dataView = Ext.create('Ext.grid.Panel', {
 			bufferedRenderer: false,
 			autoScroll : true,
@@ -118,7 +117,6 @@ Ext.define('QELT.controller.Board', {
 						success: function(response){
 							var question = JSON.parse(response.responseText);
 							controller.questionView.items.get("questionField").update(question.text);
-							console.log(controller.questionView);
 							controller.questionView.form.url = question.resource_uri;
 							controller.questionView.form.setValues({ student_answer: ''});
 							controller.getContentPanel().setActiveItem(0);
@@ -214,6 +212,7 @@ Ext.define('QELT.controller.Board', {
 							var roots = JSON.parse(question.x);
 							var min = -10;
 							var max = 10;
+							
 							if (roots.length == 2){
 								min = Math.min.apply(Math, roots) - 10;
 								max = Math.max.apply(Math, roots) + 10;
@@ -223,13 +222,22 @@ Ext.define('QELT.controller.Board', {
 							}
 
 							for(var i = min; i<=max; i++){
-								point = {x:i, y:((coefficients[0]*i*i)+(coefficients[1]*i) + coefficients[2])}
-								if (point.y == 0)
-									point['marker'] = {enabled: true};
-								data.push(point);
-								
+								point = {x:i, y:((coefficients[0]*i*i)+(coefficients[1]*i) + coefficients[2])};
+								//exclude roots, add later
+								if (point.y != 0)
+									data.push(point);
 							}
-							
+
+							//add roots
+							if (roots.length == 2){
+								point = {x:Math.min.apply(Math, roots), y:0, marker: {enabled: true}};
+								data.splice(10, 0, point);
+								point = {x:Math.max.apply(Math, roots), y:0, marker: {enabled: true}};
+								data.splice(-10, 0, point);
+							}else if(roots.length == 1){
+								point = {x:roots[0], y:0, marker: {enabled: true}};
+								data.splice(10, 0, point);
+							}
 							return data;
 						})()
 					}],
