@@ -82,8 +82,8 @@ WSGI_APPLICATION = 'QELT.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'plaxis',
-        'USER': 'plaxis',
+        'NAME': 'qeltdb',
+        'USER': 'qeltdbuser',
         'PASSWORD': 'illuminating',
         'HOST': '127.0.0.1'
     }
