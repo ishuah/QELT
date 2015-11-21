@@ -33,7 +33,7 @@ Ext.define("QELT.view.Question", {
 		{
 			fieldLabel: 'The value of x is:',
 			name: 'student_answer',
-			regex: /^\d+$|^\d+,\d|^\[\d]|^\[\d,\d]/
+			regex: /^\[?\-?\d*\.?\d*\,?\-?\d*\.?\d*\]?$/
 		}
 	],
 	buttons: [{

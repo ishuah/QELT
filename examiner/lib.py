@@ -1,25 +1,31 @@
 import random, json
 import numpy as np 
 
-ROOT_CHOICES = range(-10, 10)
-K_CHOICES = range(-10, 10)
-K_CHOICES.remove(0)
+MIN_ROOT = -25
+MAX_ROOT = 25
+K_CHOICES = range(1, 10)
 
 def get_root(single_solution=False):
 	if single_solution:
-		return json.dumps([random.choice(ROOT_CHOICES)])
-	return json.dumps([random.choice(ROOT_CHOICES), random.choice(ROOT_CHOICES)])
+		if(bool(random.getrandbits(1))):
+			return json.dumps([round(random.uniform(MIN_ROOT, MAX_ROOT),1)])
+		return json.dumps([random.choice(range(MIN_ROOT, MAX_ROOT))])
+	else:
+		roots = []
+		while len(roots) < 2:
+			roots.append(random.choice(range(MIN_ROOT, MAX_ROOT)) if bool(random.getrandbits(1)) else round(random.uniform(MIN_ROOT, MAX_ROOT),1))
+		return json.dumps(roots)
 
 def get_coefficients(x):
 	x = json.loads(x)
-	k = random.choice(K_CHOICES)
+	k = random.choice(K_CHOICES) if bool(random.getrandbits(1)) else 1
 	if len(x) == 2:
 		coefficients = np.poly(x)
-		coefficients = [x*k for x in coefficients]
+		coefficients = [round(x*k,1) for x in coefficients]
 		return json.dumps(coefficients)
 	elif len(x) == 1:
 		coefficients = np.poly(x*2)
-		coefficients = [x*k for x in coefficients]
+		coefficients = [round(x*k,1) for x in coefficients]
 		return json.dumps(coefficients)
 	elif len(x) == 0:
 		x = complex(round(random.uniform(0,10), 1), round(random.random(), 2))

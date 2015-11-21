@@ -212,12 +212,23 @@ Ext.define('QELT.controller.Board', {
 						data: (function(){
 							var data = [];
 							var coefficients = JSON.parse(question.coefficients);
-							
-							for(var i = -10; i<=10; i++){
+							var roots = JSON.parse(question.x);
+							var min = -10;
+							var max = 10;
+							if (roots.length == 2){
+								min = Math.min.apply(Math, roots) - 10;
+								max = Math.max.apply(Math, roots) + 10;
+							} else {
+								min = roots[0] - 10;
+								max = roots[0] + 10;
+							}
+
+							for(var i = min; i<=max; i++){
 								point = {x:i, y:((coefficients[0]*i*i)+(coefficients[1]*i) + coefficients[2])}
-								if (point.y ==0)
+								if (point.y == 0)
 									point['marker'] = {enabled: true};
 								data.push(point);
+								
 							}
 							
 							return data;
