@@ -218,7 +218,7 @@ Ext.define('QELT.controller.Board', {
 							if (roots.length == 2){
 								min = Math.min.apply(Math, roots) - 10;
 								max = Math.max.apply(Math, roots) + 10;
-							} else {
+							} else if(roots.length == 1) {
 								min = roots[0] - 10;
 								max = roots[0] + 10;
 							}
@@ -246,7 +246,7 @@ Ext.define('QELT.controller.Board', {
 					tooltip:{
 						enabled:false,
 						formatter: function(){
-							return "(x: "+this.x+" y:"+this.y+")"
+							return this.y
 						}
 					}
 				});

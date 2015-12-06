@@ -19,7 +19,7 @@ Ext.define('QELT.view.Answer', {
 	}],
 
 	items: [{
-		html: '<div id="mychart" style="width: 300px; height: 300px; margin: 0;"></div>',
+		html: '<div id="mychart" style="width: 250px; height: 250px; margin: 0;"></div>',
 		border: false,
 	}, {
 		itemId: 'answerBox',
