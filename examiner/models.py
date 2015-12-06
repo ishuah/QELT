@@ -44,4 +44,18 @@ class Question(models.Model):
 
     def to_string(self):
         coefficients = json.loads(self.coefficients)
-        return str(coefficients[0])+'<sup>2</sup> + ' + str(coefficients[1]) + 'x + ' + str(coefficients[2]) + ' = 0'
+        a = 'x<sup>2</sup> ' if coefficients[0] == 1 else str(coefficients[0])+'x<sup>2</sup> '
+
+        if coefficients[1] == 0:
+            b = ''
+        elif abs(coefficients[1]) == 1:
+            b = '+x' if coefficients[1] > 0 else '-x' 
+        else:
+            b = '+' + str(coefficients[1])+'x ' if coefficients[1] > 0 else str(coefficients[1])+'x '
+
+        if coefficients[2] == 0:
+            c = ''
+        else:
+            c = '+' + str(coefficients[2]) if coefficients[2] > 0 else str(coefficients[2])
+
+        return a + b  + c + ' = 0'
