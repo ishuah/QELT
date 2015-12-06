@@ -212,9 +212,9 @@ Ext.define('QELT.controller.Board', {
 							var data = [];
 							var coefficients = JSON.parse(question.coefficients);
 							var roots = JSON.parse(question.x);
-							var min = -10;
-							var max = 10;
-							
+							min = -100;
+							max = +100;
+
 							if (roots.length == 2){
 								min = Math.min.apply(Math, roots) - 10;
 								max = Math.max.apply(Math, roots) + 10;
